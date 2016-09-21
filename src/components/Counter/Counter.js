@@ -1,27 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class Counter extends Component {
 
-  state = { value: 0 };
-
-  increment = () => {
-    this.setState(prevState => ({
-      value: prevState.value + 1
-    }));
-  };
-
-  decrement = () => {
-    this.setState(prevState => ({
-      value: prevState.value - 1
-    }));
+  static propTypes = {
+    value: PropTypes.number.isRequired,
+    onIncrement: PropTypes.func.isRequired,
+    onDecrement: PropTypes.func.isRequired,
   };
 
   render() {
     return (
       <div>
-        {this.state.value}
-        <button onClick={this.increment}>+</button>
-        <button onClick={this.decrement}>-</button>
+        {this.props.value}
+        <button onClick={this.props.onIncrement}>+</button>
+        <button onClick={this.props.onDecrement}>-</button>
       </div>
     )
   }
