@@ -1,21 +1,28 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import {connect} from 'react-redux';
 
 import logo from './logo.svg';
 import './App.css';
 import Counter from './../../components/Counter/Counter';
-import store from './../../store';
+import {increment, decrement} from './../../reducers/counter';
 
-export default class App extends Component {
+class App extends Component {
+
+  static propTypes = {
+    value: PropTypes.number.isRequired,
+    increment: PropTypes.func.isRequired,
+    decrement: PropTypes.func.isRequired
+  };
 
   render() {
 
-    const counterProps = {
-      value: store.getState(),
-      onIncrement: () => store.dispatch({type: 'INCREMENT'}),
-      onDecrement: () => store.dispatch({type: 'DECREMENT'})
-    };
+    const {value, increment, decrement} = this.props;
 
-    console.log('here', store.getState());
+    const counterProps = {
+      value,
+      onIncrement: increment,
+      onDecrement: decrement
+    };
 
     return (
       <div className="App">
@@ -30,3 +37,7 @@ export default class App extends Component {
     );
   }
 }
+
+export default connect(state => ({
+  value: state.counter
+}), {increment, decrement})(App);
