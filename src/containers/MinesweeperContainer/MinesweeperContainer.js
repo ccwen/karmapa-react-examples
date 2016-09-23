@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import SCAN_COORDS from './../../constants/scanCoords';
-import {setFace, setTime} from './../../reducers/minesweeper';
+import {setFace, setTime, setFlagCount} from './../../reducers/minesweeper';
 import Minesweeper from './../../components/Minesweeper/Minesweeper';
 import getRandomInt from './../../helpers/getRandomInt';
 import genArr from './../../helpers/genArr';
@@ -15,6 +15,7 @@ class MinesweeperContainer extends Component {
     minesCount: PropTypes.number.isRequired,
     setFace: PropTypes.func.isRequired,
     setTime: PropTypes.func.isRequired,
+    setFlagCount: PropTypes.func.isRequired,
     width: PropTypes.number.isRequired
   };
 
@@ -24,16 +25,15 @@ class MinesweeperContainer extends Component {
 
   constructor(props) {
     super(props);
-    const {minesCount} = this.props;
-    this.state = {
-      flagCount: minesCount
-    };
+    this.init();
   }
 
-  componentWillMount() {
+  init = () => {
+    const {setFlagCount, minesCount} = this.props;
+    setFlagCount(minesCount);
     this.createCells();
     this.setRandomMines();
-  }
+  };
 
   getCellKey = (x, y) => `${x}:${y}`;
 
@@ -149,11 +149,11 @@ class MinesweeperContainer extends Component {
   };
 
   toggleFlag = (cell) => {
+    const {setFlagCount, flagCount} = this.props;
     cell.isFlagged = ! cell.isFlagged;
     cell.component.setFlagged(cell.isFlagged);
-    this.setState(({flagCount}) => ({
-      flagCount: cell.isFlagged ? (flagCount - 1) : (flagCount + 1)
-    }));
+    const nextFlagCount = cell.isFlagged ? (flagCount - 1) : (flagCount + 1);
+    setFlagCount(nextFlagCount);
   };
 
   handleCellRightClick = (x, y, event) => {
@@ -224,8 +224,7 @@ class MinesweeperContainer extends Component {
 
   render() {
 
-    const {width, height, minesCount, face, timeInSec} = this.props;
-    const {flagCount} = this.state;
+    const {width, height, minesCount, face, timeInSec, flagCount} = this.props;
     const props = {width, height, minesCount, flagCount, face, timeInSec,
       onCellClick: this.handleCellClick, onCellRender: this.handleCellRender,
       onCellRightClick: this.handleCellRightClick, onFaceClick: this.reset};
@@ -236,5 +235,6 @@ class MinesweeperContainer extends Component {
 
 export default connect(state => ({
   face: state.minesweeper.face,
-  timeInSec: state.minesweeper.timeInSec
-}), {setFace, setTime})(MinesweeperContainer);
+  timeInSec: state.minesweeper.timeInSec,
+  flagCount: state.minesweeper.flagCount
+}), {setFace, setTime, setFlagCount})(MinesweeperContainer);
