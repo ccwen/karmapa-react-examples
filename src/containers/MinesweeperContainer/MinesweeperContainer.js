@@ -45,10 +45,6 @@ class MinesweeperContainer extends Component {
     this.setRandomMines();
   }
 
-  componentDidMount() {
-    //this.showMines();
-  }
-
   getCellKey = (x, y) => `${x}:${y}`;
 
   createCells = () => {
