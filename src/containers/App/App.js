@@ -33,7 +33,9 @@ class App extends Component {
         </div>
         <div>
           <Counter {...counterProps} />
-          <MinesweeperContainer width={8} height={8} minesCount={10} />
+          <MinesweeperContainer id="m1" width={8} height={8} minesCount={10} />
+          <MinesweeperContainer id="m2" width={16} height={16} minesCount={40} />
+          <MinesweeperContainer id="m3" width={30} height={16} minesCount={99} />
         </div>
       </div>
     );

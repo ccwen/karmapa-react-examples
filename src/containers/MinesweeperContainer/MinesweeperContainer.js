@@ -10,6 +10,7 @@ import genArr from './../../helpers/genArr';
 class MinesweeperContainer extends Component {
 
   static propTypes = {
+    id: PropTypes.string.isRequired,
     face: PropTypes.string.isRequired,
     height: PropTypes.number.isRequired,
     minesCount: PropTypes.number.isRequired,
@@ -29,8 +30,8 @@ class MinesweeperContainer extends Component {
   }
 
   init = () => {
-    const {setFlagCount, minesCount} = this.props;
-    setFlagCount(minesCount);
+    const {setFlagCount, minesCount, id} = this.props;
+    setFlagCount(id, minesCount);
     this.createCells();
     this.setRandomMines();
   };
@@ -83,7 +84,8 @@ class MinesweeperContainer extends Component {
 
     if (! this.isStarted) {
       this.timePadTimer = setInterval(() => {
-        this.props.setTime(this.props.timeInSec + 1);
+        const {setTime, timeInSec, id} = this.props;
+        setTime(id, timeInSec + 1);
       }, 1000);
     }
 
@@ -181,12 +183,14 @@ class MinesweeperContainer extends Component {
   };
 
   lose = () => {
-    this.props.setFace('x_x');
+    const {id, setFace} = this.props;
+    setFace(id, 'x_x');
     this.isDisabled = true;
   };
 
   win = () => {
-    this.props.setFace('*()*');
+    const {id, setFace} = this.props;
+    setFace(id, '*()*');
     this.isDisabled = true;
   };
 
@@ -211,13 +215,18 @@ class MinesweeperContainer extends Component {
   };
 
   reset = () => {
+
+    const {id, setFace, setTime} = this.props;
     const cells = this.cells;
+
     Object.keys(cells)
       .forEach((key) => this.resetCell(cells[key]));
-    this.props.setFace('^_^');
+
+    setFace(id, '^_^');
+    setTime(id, 0);
+
     this.setRandomMines();
     this.stopTimePad();
-    this.props.setTime(0);
     this.isStarted = false;
     this.isDisabled = false;
   };
@@ -233,8 +242,12 @@ class MinesweeperContainer extends Component {
   }
 }
 
-export default connect(state => ({
-  face: state.minesweeper.face,
-  timeInSec: state.minesweeper.timeInSec,
-  flagCount: state.minesweeper.flagCount
-}), {setFace, setTime, setFlagCount})(MinesweeperContainer);
+export default connect((state, ownProps) => {
+  const {minesweeper} = state;
+  const {face, timeInSec, flagCount} = minesweeper.data[ownProps.id] || minesweeper.defaultRow;
+  return {
+    face,
+    timeInSec,
+    flagCount
+  };
+}, {setFace, setTime, setFlagCount})(MinesweeperContainer);
