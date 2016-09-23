@@ -1,0 +1,22 @@
+.minesweeper .table {
+  border-collapse: collapse;
+  background-color: #bdbdbd;
+}
+
+.minesweeper .flag-pad,
+.minesweeper .face-pad,
+.minesweeper .time-pad {
+  display: inline-block;
+}
+
+.minesweeper .score-board {
+  text-align: left;
+  padding-bottom: 7px;
+  padding-bottom: 7px;
+}
+
+.minesweeper .face-pad {
+  cursor: pointer;
+  width: 100px;
+  text-align: center;
+}
