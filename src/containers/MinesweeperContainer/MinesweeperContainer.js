@@ -1,21 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
+import SCAN_COORDS from './../../constants/scanCoords';
 import {setFace} from './../../reducers/minesweeper';
 import Minesweeper from './../../components/Minesweeper/Minesweeper';
 import getRandomInt from './../../helpers/getRandomInt';
 import genArr from './../../helpers/genArr';
-
-const SCAN_COORDS = [
-  {deltaX: -1, deltaY: -1},
-  {deltaX: 0, deltaY: -1},
-  {deltaX: 1, deltaY: -1},
-  {deltaX: -1, deltaY: 0},
-  {deltaX: 1, deltaY: 0},
-  {deltaX: -1, deltaY: 1},
-  {deltaX: 0, deltaY: 1},
-  {deltaX: 1, deltaY: 1}
-];
 
 class MinesweeperContainer extends Component {
 
