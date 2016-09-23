@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
 import Counter from './../../components/Counter/Counter';
+import MinesweeperContainer from './../MinesweeperContainer/MinesweeperContainer';
 import {increment, decrement} from './../../reducers/counter';
 
 class App extends Component {
@@ -32,6 +33,7 @@ class App extends Component {
         </div>
         <div>
           <Counter {...counterProps} />
+          <MinesweeperContainer width={8} height={8} minesCount={10} />
         </div>
       </div>
     );
