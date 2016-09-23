@@ -1,4 +1,7 @@
 import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+
+import {setFace} from './../../reducers/minesweeper';
 import Minesweeper from './../../components/Minesweeper/Minesweeper';
 import getRandomInt from './../../helpers/getRandomInt';
 import genArr from './../../helpers/genArr';
@@ -14,12 +17,14 @@ const SCAN_COORDS = [
   {deltaX: 1, deltaY: 1}
 ];
 
-export default class MinesweeperContainer extends Component {
+class MinesweeperContainer extends Component {
 
   static propTypes = {
-    width: PropTypes.number.isRequired,
+    face: PropTypes.string.isRequired,
     height: PropTypes.number.isRequired,
-    minesCount: PropTypes.number.isRequired
+    minesCount: PropTypes.number.isRequired,
+    setFace: PropTypes.func.isRequired,
+    width: PropTypes.number.isRequired
   };
 
   cells = {};
@@ -31,7 +36,6 @@ export default class MinesweeperContainer extends Component {
     const {minesCount} = this.props;
     this.state = {
       flagCount: minesCount,
-      face: '^_^',
       timeInSec: 0
     };
   }
@@ -192,15 +196,13 @@ export default class MinesweeperContainer extends Component {
     cell.component.setClicked(isClicked);
   };
 
-  setFace = (face) => this.setState({face});
-
   lose = () => {
-    this.setFace('x_x');
+    this.props.setFace('x_x');
     this.isDisabled = true;
   };
 
   win = () => {
-    this.setFace('*()*');
+    this.props.setFace('*()*');
     this.isDisabled = true;
   };
 
@@ -228,7 +230,7 @@ export default class MinesweeperContainer extends Component {
     const cells = this.cells;
     Object.keys(cells)
       .forEach((key) => this.resetCell(cells[key]));
-    this.setFace('^_^');
+    this.props.setFace('^_^');
     this.setRandomMines();
     this.stopTimePad();
     this.setTime(0);
@@ -238,8 +240,8 @@ export default class MinesweeperContainer extends Component {
 
   render() {
 
-    const {width, height, minesCount} = this.props;
-    const {flagCount, face, timeInSec} = this.state;
+    const {width, height, minesCount, face} = this.props;
+    const {flagCount, timeInSec} = this.state;
     const props = {width, height, minesCount, flagCount, face, timeInSec,
       onCellClick: this.handleCellClick, onCellRender: this.handleCellRender,
       onCellRightClick: this.handleCellRightClick, onFaceClick: this.reset};
@@ -247,3 +249,7 @@ export default class MinesweeperContainer extends Component {
     return <Minesweeper {...props} />;
   }
 }
+
+export default connect(state => ({
+  face: state.minesweeper.face
+}), {setFace})(MinesweeperContainer);
