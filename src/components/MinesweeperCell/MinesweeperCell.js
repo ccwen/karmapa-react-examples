@@ -35,7 +35,7 @@ export default class MinesweeperCell extends Component {
 
     const tdClass = classNames({
       'cell': true,
-      'is-mine': showMine,
+      'mine': showMine,
       'clicked': isClicked,
       'flagged': isFlagged,
       [`c${number}`]: true

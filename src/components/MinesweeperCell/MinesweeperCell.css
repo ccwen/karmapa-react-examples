@@ -15,7 +15,7 @@
   background-color: #bdbdbd;
   border: 4px solid #a29c9c;
 }
-.minesweeper .cell.clicked.is-mine:after {
+.minesweeper .cell.clicked.mine:after {
   content: '☀';
 }
 .minesweeper .cell.clicked.c1 {
