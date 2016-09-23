@@ -4,7 +4,7 @@ import './Minesweeper.css';
 import MinesweeperCell from './../MinesweeperCell/MinesweeperCell';
 import genArr from './../../helpers/genArr';
 
-export default class Minesweepr extends Component {
+export default class Minesweeper extends Component {
 
   static propTypes = {
     face: PropTypes.string.isRequired,
