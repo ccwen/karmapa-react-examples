@@ -14,8 +14,8 @@ class MinesweeperContainer extends Component {
     height: PropTypes.number.isRequired,
     minesCount: PropTypes.number.isRequired,
     setFace: PropTypes.func.isRequired,
-    setTime: PropTypes.func.isRequired,
     setFlagCount: PropTypes.func.isRequired,
+    setTime: PropTypes.func.isRequired,
     width: PropTypes.number.isRequired
   };
 
