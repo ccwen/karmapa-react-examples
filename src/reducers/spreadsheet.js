@@ -1,11 +1,15 @@
+import storage from './../helpers/storage';
+
 const SET_DATA = 'react-example/spreadsheet/SET_DATA';
 
-export default (state = {data: {}}, action) => {
+export default (state = {data: storage.get('spreadsheetData') || {}}, action) => {
 
   switch (action.type) {
     case SET_DATA:
       const {x, y, value} = action;
-      return Object.assign({}, state, {[x + ':' + y]: value});
+      let data = state.data;
+      data[x + ':' + y] = value;
+      return Object.assign({}, state, {data});
     default:
       return state;
   }
