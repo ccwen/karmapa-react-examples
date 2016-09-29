@@ -6,7 +6,7 @@ import './App.css';
 class App extends Component {
 
   static propTypes = {
-    children: PropTypes.object.isRequired
+    children: PropTypes.object
   };
 
   render() {
