@@ -17,7 +17,7 @@ class Spreadsheet extends Component {
     const cells = genArr(height).map((elem, y) => {
       const cols = genArr(width).map((elem, x) => (
         <td key={`cell-${x}-${y}`}>
-          <input type="text" value={data[x + ':' + y]} onChange={onInputChange.bind(null, x, y)} />
+          <input type="text" value={data[x + ':' + y] || ''} onChange={onInputChange.bind(null, x, y)} />
         </td>
       ));
       return <tr key={`row-${y}`}>{cols}</tr>;

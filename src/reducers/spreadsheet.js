@@ -9,7 +9,8 @@ export default (state = {data: storage.get('spreadsheetData') || {}}, action) =>
       const {x, y, value} = action;
       let data = state.data;
       data[x + ':' + y] = value;
-      return Object.assign({}, state, {data});
+      const newData = Object.assign({}, data);
+      return Object.assign({}, state, {data: newData});
     default:
       return state;
   }
