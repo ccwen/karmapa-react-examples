@@ -1,3 +1,9 @@
 .spreadsheet {
   border-collapse: collapse;
 }
+
+.even,
+.even input
+{
+  background-color: gray;
+}

@@ -12,7 +12,7 @@ class App extends Component {
         <div className="App-header">
           <h2>Simple Spreadsheet</h2>
         </div>
-        <SpreadsheetContainer width={10} height={10} />
+        <SpreadsheetContainer />
       </div>
     );
   }
