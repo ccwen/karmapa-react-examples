@@ -17,6 +17,20 @@
   font-size: large;
 }
 
+.App-nav {
+  text-align: left;
+}
+
+.App-nav li {
+  display: inline-block;
+  margin-right: 7px;
+}
+
+.App-nav a {
+  cursor: pointer;
+  color: white;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

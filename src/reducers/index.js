@@ -1,4 +1,6 @@
 import {combineReducers} from 'redux';
+import {routerReducer} from 'react-router-redux';
+
 import counter from './counter';
 import minesweeper from './minesweeper';
 import spreadsheet from './spreadsheet';
@@ -6,7 +8,8 @@ import spreadsheet from './spreadsheet';
 const rootReducer = combineReducers({
   counter,
   minesweeper,
-  spreadsheet
+  spreadsheet,
+  routing: routerReducer
 });
 
 export default rootReducer;
